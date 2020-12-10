@@ -11,18 +11,21 @@ class Pokemon:
 
 # fonction de recherche de pokémon par intervalle
 # retourne une liste de pokémons si possible, sinon rien
+# 1 - 152 => first gen
 def find_pokemon_by_range(start, end):
+    if start < 1:
+        return None
+
     r = requests.get(f'https://pokeapi.co/api/v2/pokemon?offset={str(start)}&limit={str(end-start)}')
     if r.status_code !=200:
         return None
     res = []
-    count = 0
+    count = 1
     for pokemon_json in r.json()['results']:
-        print(pokemon_json)
-        res.append({**pokemon_json, id: start+count})
+        pokemon_json['id'] = start+count
+        res.append(pokemon_json)
         count = count + 1
-    print(res)
-    return r.json()
+    return res
 
 # fonction de recherche de pokémon par le nom
 # retourne une instance de Pokemon si trouvé, sinon rien

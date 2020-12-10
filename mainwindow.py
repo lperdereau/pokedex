@@ -35,6 +35,11 @@ class MainWindow(QMainWindow):
         suppAct.setStatusTip("Supprimer le personnage")
         suppAct.triggered.connect(self.SupprimerClick)
 
+        equipeAct = QAction(QIcon('images/pokeball.png'),'Team',self)
+        equipeAct.setShortcut('Ctrl+T')
+        equipeAct.setStatusTip("Equipe")
+        equipeAct.triggered.connect(self.PrecedentClick)
+
 
         #LIAISON ACTIONS ET MENUS
         self.statusBar()
