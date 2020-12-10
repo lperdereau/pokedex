@@ -31,11 +31,7 @@ class MainWindow(QMainWindow):
         mainGridLayout = QGridLayout()
         #mainGridLayout.setGeometry(0,0,400,400)
         rightGridLayout = QGridLayout()
-        teamLayout = QGridLayout()
-
-        # Ajout du grid layout teamGridLayout dans la partie gauche du mainGridLayout
-        mainGridLayout.addLayout(teamLayout,0,0)
-
+       
         # Ajout de l'affichage pokemon dans la partie en bas à droite
         rightGridLayout.addWidget(self.displayPokemon,0,0)
         rightGridLayout.addWidget(NavLayout(self.liste,self.navigation),1,0)
@@ -43,6 +39,9 @@ class MainWindow(QMainWindow):
         
         # Ajout d'un grid layout dans le main layout pour diviser la partie droite du layout principal en deux
         mainGridLayout.addLayout(rightGridLayout,0,1)
+
+        # Ajout de l'affichage de l'équipe dans la partie gauche du mainGridLayout
+        #mainGridLayout.addWidget(teamLayout,0,0)
 
         # self.grid1.addWidget(AffichagePokemon(self.liste[0]),0,0)
 

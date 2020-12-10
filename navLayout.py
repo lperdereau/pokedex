@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout
+from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QLineEdit
 from PyQt5.QtCore import Qt
-from pokemon import find_pokemon_by_id,Pokemon
+from pokemon import find_pokemon_by_id,Pokemon,find_pokemon_by_name
 
 class NavLayout(QWidget):
 
@@ -9,7 +9,13 @@ class NavLayout(QWidget):
         self.liste = liste
         self.index = index
         self.callback = callback
-        
+
+        # Barre de recherche
+        self.search = QLineEdit()
+        self.search.setMaximumWidth(400)
+        self.btnSearch = QPushButton('Search')
+        self.btnSearch.resize(200,80)
+        self.btnSearch.clicked.connect(self.search_click)
         # Boutons de navigation entre les Pokémons
         self.btnLeft = QPushButton('←')
         #self.btnLeft.setShortcut('Qt.Key_LEFT')
@@ -27,8 +33,10 @@ class NavLayout(QWidget):
 
         layout = QGridLayout()
 
-        layout.addWidget(self.btnLeft, 0, 0)
-        layout.addWidget(self.btnRight, 0, 1)
+        layout.addWidget(self.search,0,0)
+        layout.addWidget(self.btnSearch,0,1)
+        layout.addWidget(self.btnLeft, 1, 0)
+        layout.addWidget(self.btnRight, 1, 1)
 
         self.setLayout(layout)
 
@@ -67,4 +75,12 @@ class NavLayout(QWidget):
         else :
             self.index = self.index + 1
             self.callback(self.index)
+
+    def search_click(self):
+        pok_name = self.search.text()
+        print(pok_name)
+        self.index=find_pokemon_by_name(pok_name).id
+        self.callback(self.index)
+        print(self.index)
+        
         
