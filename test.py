@@ -52,7 +52,7 @@ def main():
         print("erreur")    
     app= QApplication(sys.argv)
     #mw=MainWindow(listPokemon)
-    gr = GridLayout(listPokemon[0])
+    gr = GridLayout(listPokemon[1])
     sys.exit(app.exec_())
 
 if __name__ =='__main__' :

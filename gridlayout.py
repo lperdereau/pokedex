@@ -1,9 +1,10 @@
-import sys
+# Classe GridLayout 
 from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QApplication,QLabel,QStatusBar,QAction,qApp,QMainWindow,QLineEdit,QComboBox
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon,QPixmap
 from pokemon import *
 
+
+# Création de la classe GridLayout
 class GridLayout(QWidget):
     def __init__(self,pokemon):
         self.pokemon= find_pokemon_by_name(pokemon.name)
@@ -15,12 +16,15 @@ class GridLayout(QWidget):
         # corps de l'application
         nomLabel = QLabel("Nom :")
         nomValue = QLabel(str(self.pokemon.name))
+        print(self.pokemon.image)      
+        
+        r = requests.get(self.pokemon.image, allow_redirects=True)
 
-        img_data = requests.get(self.pokemon.image,allow_redirects=True).content
+        open('img_pokemon.png', 'wb').write(r.content)
         
 
         label = QLabel(self)
-        img = QPixmap(open('img.png','wb').write(img_data))
+        img = QPixmap('img_pokemon.png')
         imgsmaller = img.scaled(160,160)
         label.setPixmap(imgsmaller)
 
