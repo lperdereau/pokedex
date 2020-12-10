@@ -4,7 +4,9 @@ from PyQt5.QtGui import QIcon,QPixmap
 from PyQt5.QtCore import Qt
 from pokemon import *
 import sys
-from gridlayout import GridLayout
+from gridlayout import AffichagePokemon
+
+from pokemon import find_pokemon_by_range
 
 listPokemon = []
 pokemon_first_gen = 151
@@ -56,4 +58,5 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ =='__main__' :
-    main()
+    #main()
+    find_pokemon_by_range(0,2)

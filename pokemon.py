@@ -12,10 +12,17 @@ class Pokemon:
 # fonction de recherche de pokémon par intervalle
 # retourne une liste de pokémons si possible, sinon rien
 def find_pokemon_by_range(start, end):
-    r = requests.get(f'https://pokeapi.co/api/v2/pokemon?offset={str(start)}limit={str(end)}')
+    r = requests.get(f'https://pokeapi.co/api/v2/pokemon?offset={str(start)}&limit={str(end-start)}')
     if r.status_code !=200:
         return None
-    return r.json()[start:end]
+    res = []
+    count = 0
+    for pokemon_json in r.json()['results']:
+        print(pokemon_json)
+        res.append({**pokemon_json, id: start+count})
+        count = count + 1
+    print(res)
+    return r.json()
 
 # fonction de recherche de pokémon par le nom
 # retourne une instance de Pokemon si trouvé, sinon rien
@@ -37,4 +44,4 @@ def find_pokemon_by_id(id):
         return None
 
     result = r.json()
-    return Pokemon(result["name"], result["sprites"]["front_default"])
+    return Pokemon(result["name"],result["id"],result["sprites"]["front_default"])

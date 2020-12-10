@@ -1,15 +1,15 @@
 import requests
 import sys
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QApplication,QLabel,QStatusBar,QAction,qApp,QMainWindow,QLineEdit,QComboBox
 from PyQt5.QtGui import QIcon,QPixmap
-from gridlayout import GridLayout
+from gridlayout import AffichagePokemon
 from pokemon import *
 
 class MainWindow(QMainWindow):
     def __init__(self,liste):
         super().__init__()
         self.liste = liste
-        self.grid = GridLayout(self.liste[0])
+        self.grid = AffichagePokemon(self.liste[0])
         self.UI()
 
     def UI(self):
@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         
         precAct = QAction(QIcon('images/gauche.jpg'),'Before',self)
         precAct.setShortcut('Ctrl+B')
-        precAct.setStatusTip("Perssonnage précédent")
+        precAct.setStatusTip("Personnage précédent")
         precAct.triggered.connect(self.PrecedentClick)
 
         suppAct = QAction(QIcon('images/supprimer.jpg'),'Delete',self)
@@ -90,7 +90,6 @@ def main():
         print("erreur")    
     app= QApplication(sys.argv)
     mw=MainWindow(listPokemon)
-    #gr = GridLayout(listPokemon[0])
     sys.exit(app.exec_())
 
 if __name__ =='__main__' :
