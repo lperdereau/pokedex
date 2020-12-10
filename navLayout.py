@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QLineEdit
+from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QLineEdit,QMessageBox
 from PyQt5.QtCore import Qt
 from pokemon import find_pokemon_by_id,Pokemon,find_pokemon_by_name
 
@@ -33,10 +33,10 @@ class NavLayout(QWidget):
 
         layout = QGridLayout()
 
-        layout.addWidget(self.search,0,0)
-        layout.addWidget(self.btnSearch,0,1)
-        layout.addWidget(self.btnLeft, 1, 0)
-        layout.addWidget(self.btnRight, 1, 1)
+        layout.addWidget(self.search,1,0)
+        layout.addWidget(self.btnSearch,1,1)
+        layout.addWidget(self.btnLeft, 0, 0)
+        layout.addWidget(self.btnRight, 0, 1)
 
         self.setLayout(layout)
 
@@ -77,10 +77,41 @@ class NavLayout(QWidget):
             self.callback(self.index)
 
     def search_click(self):
+        value = 0
         pok_name = self.search.text()
-        print(pok_name)
-        self.index=find_pokemon_by_name(pok_name).id
-        self.callback(self.index)
-        print(self.index)
+        for i in self.liste:
+            if pok_name==i['name'] :
+                value=1
+            elif int(pok_name)==i['id']:
+                value=2
+        
+        if value==1 :
+            self.index=find_pokemon_by_name(pok_name).id-1
+            self.callback(self.index)
+            if self.index == 0:
+                self.btnLeft.setEnabled(False)
+            else :
+                self.btnLeft.setEnabled(True)
+        
+            if self.index == len(self.liste)-1:
+                self.btnRight.setEnabled(False)
+            else :
+                self.btnRight.setEnabled(True)
+        elif value==2 :
+            self.index=find_pokemon_by_id(pok_name).id-1
+            self.callback(self.index)
+            if self.index == 0:
+                self.btnLeft.setEnabled(False)
+            else :
+                self.btnLeft.setEnabled(True)
+        
+            if self.index == len(self.liste)-1:
+                self.btnRight.setEnabled(False)
+            else :
+                self.btnRight.setEnabled(True)
+        else :
+            QMessageBox.about(self, "Attention !", "Ce Pokémon n'existe pas")
+                
+        
         
         

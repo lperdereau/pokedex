@@ -2,21 +2,19 @@ from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QLineEdit, QLabel
 from PyQt5.QtCore import Qt
 from pokemon import find_pokemon_by_id,Pokemon
 
-class teamLayout(QWidget) :
+class TeamLayout(QWidget) :
     def __init__(self):
         self.team = []
         self.listWidget = []
         
     def ui(self) :
-
         listLayout = QGridLayout()
-
-        
-
+        for i in range(0,3):
+            self.listWidget[i] = ItemTeam()
+            listLayout.addWidget(self.listWidget[i], i,0)
         self.setLayout(listLayout)
 
-
-class itemTeam(QWidget) :
+class ItemTeam(QWidget) :
     def __init__(self):
         self.name
         self.btnDelete
@@ -43,9 +41,14 @@ class itemTeam(QWidget) :
     def add(self, pokemon) :
         self.name = pokemon.nom
         self.btnDelete.setEnabled(True)
+        self.update()
 
     def delete(self) :
         self.name = ""
         self.btnDelete.setEnabled(False)
+        self.update()
+
+    def update(self) :
+        self.labelName.setText(self.name)
 
     

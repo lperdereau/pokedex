@@ -32,8 +32,8 @@ def find_pokemon_by_range(start, end):
 
 # fonction de recherche de pokémon par le nom
 # retourne une instance de Pokemon si trouvé, sinon rien
-def find_pokemon_by_name(name):
-    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{str(name)}/')
+def find_pokemon_by_name(name,start=0,end=151):
+    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{str(name)}?offset={str(start)}&limit={str(end-start)}')
 
     if r.status_code !=200 :
         return None
@@ -43,8 +43,8 @@ def find_pokemon_by_name(name):
 
 # fonction de recherche de pokémon par id
 # retourne une instance de Pokemon si trouvé, sinon rien.
-def find_pokemon_by_id(id):
-    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{str(id)}/')
+def find_pokemon_by_id(id,start=0,end=151):
+    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{str(id)}?offset={str(start)}&limit={str(end-start)}')
 
     if r.status_code !=200 :
         return None
