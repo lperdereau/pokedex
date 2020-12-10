@@ -1,11 +1,11 @@
 import requests
+import sys
 from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QApplication,QLabel,QStatusBar,QAction,qApp,QMainWindow,QLineEdit,QComboBox
 from PyQt5.QtGui import QIcon,QPixmap
 from PyQt5.QtCore import Qt
-from pokemon import *
-import sys
-from gridlayout import AffichagePokemon
-
+from .pokemon import Pokemon
+from .pokemonDisplay import AffichagePokemon
+from .navLayout import NavLayout
 from pokemon import find_pokemon_by_range
 
 listPokemon = []
@@ -54,7 +54,7 @@ def main():
         print("erreur")    
     app= QApplication(sys.argv)
     #mw=MainWindow(listPokemon)
-    gr = GridLayout(listPokemon[1])
+    gr = AffichagePokemon(listPokemon[1])
     sys.exit(app.exec_())
 
 if __name__ =='__main__' :

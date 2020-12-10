@@ -4,16 +4,19 @@ import requests
 
 # Création de la classe pokemon
 class Pokemon:
-    def __init__(self,name, id = None, image = None):
+    def __init__(self,name, id = None, image = None,types=None,height=None,weight=None):
         self.name = name
         self.id = id
         self.image = image
+        self.type=types
+        self.height=height
+        self.weight=weight
 
 # fonction de recherche de pokémon par intervalle
 # retourne une liste de pokémons si possible, sinon rien
 # 1 - 152 => first gen
 def find_pokemon_by_range(start, end):
-    if start < 1:
+    if start < 0:
         return None
 
     r = requests.get(f'https://pokeapi.co/api/v2/pokemon?offset={str(start)}&limit={str(end-start)}')
@@ -36,7 +39,7 @@ def find_pokemon_by_name(name):
         return None
 
     result = r.json()
-    return Pokemon(result["name"],result["id"],result["sprites"]["front_default"])
+    return Pokemon(result["name"],result["id"],result["sprites"]["front_default"],result["types"][0]["type"]["name"],result["height"],result["weight"])
 
 # fonction de recherche de pokémon par id
 # retourne une instance de Pokemon si trouvé, sinon rien.
@@ -47,4 +50,4 @@ def find_pokemon_by_id(id):
         return None
 
     result = r.json()
-    return Pokemon(result["name"],result["id"],result["sprites"]["front_default"])
+    return Pokemon(result["name"],result["id"],result["sprites"]["front_default"],result["types"][0]["type"]["name"],result["height"],result["weight"])
