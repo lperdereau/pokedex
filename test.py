@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QApplication,QLabel,
 from PyQt5.QtGui import QIcon,QPixmap
 from PyQt5.QtCore import Qt
 from pokemon import *
+import sys
+from gridlayout import GridLayout
 
 listPokemon = []
 pokemon_first_gen = 151
@@ -35,3 +37,23 @@ for i in range(1, pokemon_first_gen):
      """
       
 #print(listPokemon)
+
+
+def main():
+    listPokemon = []
+    pokemon_first_gen = 151
+    r = requests.get(f'https://pokeapi.co/api/v2/pokemon?limit={str(pokemon_first_gen)}')
+    if r.status_code ==200:
+        result = r.json()
+        for i in range(0, pokemon_first_gen):
+            p = Pokemon(result['results'][i]["name"])
+            listPokemon.append(p)
+    else :
+        print("erreur")    
+    app= QApplication(sys.argv)
+    #mw=MainWindow(listPokemon)
+    gr = GridLayout(listPokemon[0])
+    sys.exit(app.exec_())
+
+if __name__ =='__main__' :
+    main()

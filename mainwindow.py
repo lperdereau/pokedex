@@ -43,9 +43,12 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAct)
         fileMenu.addAction(suppAct)
 
-        fileMenu = menubar.addMenu('Equipe de pokémon')
+        fileMenu = menubar.addMenu('Défiler Pokémon')
         fileMenu.addAction(suivAct)
         fileMenu.addAction(precAct)
+
+        fileMenu = menubar.addMenu('Equipe de pokémon')
+        
 
         self.setCentralWidget(self.grid)
         self.setGeometry(300,300,450,200)
