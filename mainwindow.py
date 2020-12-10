@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
         self.UI()
 
     def navigation(self, index):
-        if index < len(self.liste)-1 and index >= 0:
+        if index < len(self.liste) and index >= 0:
             self.current_pokemon = find_pokemon_by_id(self.liste[index].get('id'))
             self.displayPokemon.update_UI(self.current_pokemon)
             print(self.current_pokemon.name)
