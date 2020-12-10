@@ -28,7 +28,7 @@ class NavLayout(QWidget):
         if self.index == 0:
             self.btnLeft.setEnabled(False)
         
-        if self.index == len(self.liste)-1:
+        if self.index == len(self.liste):
             self.btnRight.setEnabled(False)
 
         layout = QGridLayout()
@@ -61,26 +61,32 @@ class NavLayout(QWidget):
             
     # Passer au pokémon suivant
     def next(self):
-        print(str(self.index))
+        
         # si on va vers l'index 1, on active le bouton précédent
         if self.index == 0 :
+            print('a')
+            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
             self.btnLeft.setEnabled(True)
         # Si on arrive au dernier index on désactive le bouton suivant    
         elif self.index == len(self.liste) -1:
+            print('b')
+            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
             self.btnRight.setEnabled(False)
         else :
+            print('c')
+            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
 
     def search_click(self):
         value = 0
         pok_name = self.search.text()
-        for i in self.liste:
-            if pok_name==i['name'] :
+        for i in self.liste:#deux for pour verif si int et autre pour string
+            if str(pok_name).lower()==i['name'].lower() :
                 value=1
             elif int(pok_name)==i['id']:
                 value=2
@@ -105,13 +111,9 @@ class NavLayout(QWidget):
             else :
                 self.btnLeft.setEnabled(True)
         
-            if self.index == len(self.liste)-1:
+            if self.index == len(self.liste):
                 self.btnRight.setEnabled(False)
             else :
                 self.btnRight.setEnabled(True)
         else :
-            QMessageBox.about(self, "Attention !", "Ce Pokémon n'existe pas")
-                
-        
-        
-        
+            QMessageBox.about(self, "Attention !", "Ce Pokémon n'existe pas")        

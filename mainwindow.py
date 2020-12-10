@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('Pokédex')
         fileMenu.addAction(exitAct)
-        
+
         widget = QWidget()
         widget.setLayout(mainGridLayout)
 

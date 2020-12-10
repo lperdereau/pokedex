@@ -64,7 +64,6 @@ class AffichagePokemon(QWidget):
         os.remove('img_pokemon.png')
         r = requests.get(self.pokemon.image, allow_redirects=True)
         open('img_pokemon.png', 'wb').write(r.content)
-        print(len(r.content))
 
         # Création de l'affichage du Pokémon
         img = QPixmap('img_pokemon.png')
