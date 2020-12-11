@@ -51,4 +51,3 @@ class ItemTeam(QWidget) :
     def update(self) :
         self.labelName.setText(self.name)
 
-    

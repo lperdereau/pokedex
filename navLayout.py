@@ -70,7 +70,7 @@ class NavLayout(QWidget):
             self.callback(self.index)
             self.btnLeft.setEnabled(True)
         # Si on arrive au dernier index on désactive le bouton suivant    
-        elif self.index == len(self.liste) -1:
+        elif self.index == len(self.liste) -2:
             print('b')
             print(str(self.index))
             self.index = self.index + 1
