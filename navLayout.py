@@ -43,7 +43,7 @@ class NavLayout(QWidget):
 
     # Passer pour pokémon précédent
     def previous(self):
-        print(str(self.index))
+     
         # Si on va vers index 0, on désactive le bouton précédent(btnLeft)
         if self.index == 1 :
             self.index = self.index - 1
@@ -64,21 +64,15 @@ class NavLayout(QWidget):
         
         # si on va vers l'index 1, on active le bouton précédent
         if self.index == 0 :
-            print('a')
-            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
             self.btnLeft.setEnabled(True)
         # Si on arrive au dernier index on désactive le bouton suivant    
         elif self.index == len(self.liste) -2:
-            print('b')
-            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
             self.btnRight.setEnabled(False)
         else :
-            print('c')
-            print(str(self.index))
             self.index = self.index + 1
             self.callback(self.index)
 
@@ -88,7 +82,7 @@ class NavLayout(QWidget):
         for i in self.liste:#deux for pour verif si int et autre pour string
             if str(pok_name).lower()==i['name'].lower() :
                 value=1
-            elif int(pok_name)==i['id']:
+            elif str((pok_name))== str(i['id']):
                 value=2
         
         if value==1 :
