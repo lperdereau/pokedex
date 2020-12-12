@@ -50,7 +50,7 @@ class NavLayout(QWidget):
             self.callback(self.index)
             self.btnLeft.setEnabled(False)
         # Si on va vers l'index len(liste)-1, on active le bouton suivant(btnRight)
-        elif self.index == len(self.liste) :
+        elif self.index == len(self.liste) -1 :
             self.index = self.index - 1
             self.callback(self.index)
             self.btnRight.setEnabled(True)
