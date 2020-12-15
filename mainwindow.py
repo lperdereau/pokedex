@@ -66,6 +66,7 @@ class MainWindow(QMainWindow):
 def main():
     pokemon_first_gen = [0, 151]
     listPokemon = find_pokemon_by_range(*pokemon_first_gen)
+    print(len(listPokemon))
     app= QApplication(sys.argv)
     mw=MainWindow(listPokemon)
     sys.exit(app.exec_())

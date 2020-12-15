@@ -105,7 +105,7 @@ class NavLayout(QWidget):
             else :
                 self.btnLeft.setEnabled(True)
         
-            if self.index == len(self.liste):
+            if self.index == len(self.liste)-1:
                 self.btnRight.setEnabled(False)
             else :
                 self.btnRight.setEnabled(True)
