@@ -4,9 +4,14 @@ from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QApplication,QLabel,
 from PyQt5.QtGui import QIcon,QPixmap
 from pokemonDisplay import AffichagePokemon
 from navLayout import NavLayout
+from teamLayout import TeamLayout
 from pokemon import *
 from teamLayout import *
 
+
+"""
+    Classe MainWindow mettant en place tout les élements à afficher ainsi que les paramètres de la fenetre en elle même
+"""
 class MainWindow(QMainWindow):
     def __init__(self,liste):
         super().__init__()
@@ -18,12 +23,15 @@ class MainWindow(QMainWindow):
         
         self.UI()
 
+    #fonction appelée par le navLayout pour modifier l'index 
     def navigation(self, index):
         if index < len(self.liste) and index >= 0:
             self.current_pokemon = find_pokemon_by_id(self.liste[index].get('id'))
             self.displayPokemon.update_UI(self.current_pokemon)
-            print(self.current_pokemon.name)
             
+    #fonction appelée par TeamLayout pour récupérer le nom du pokémon courrant
+    def callback_get_current_pokemon_name(self):
+        return self.current_pokemon.name
 
     def UI(self):
 
@@ -41,18 +49,18 @@ class MainWindow(QMainWindow):
         mainGridLayout.addLayout(rightGridLayout,0,1)
 
         # Ajout de l'affichage de l'équipe dans la partie gauche du mainGridLayout
-        #mainGridLayout.addWidget(teamLayout,0,0)
+        mainGridLayout.addWidget(TeamLayout(self.callback_get_current_pokemon_name),0,2)
 
-        # self.grid1.addWidget(AffichagePokemon(self.liste[0]),0,0)
-
+        # Fonction quitter pour fermer l'application
         exitAct = QAction(QIcon('images/exit.jpg'),'Quitter',self)
         exitAct.setShortcut('Ctrl+Q')
         exitAct.setStatusTip("Quitter l'application")
         exitAct.triggered.connect(qApp.quit)
 
+        # Ajout d'un menu 'Quitter' qui permet 
         self.statusBar()
         menubar = self.menuBar()
-        fileMenu = menubar.addMenu('Pokédex')
+        fileMenu = menubar.addMenu('Quitter')
         fileMenu.addAction(exitAct)
 
         widget = QWidget()
@@ -63,10 +71,12 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Pokedex')
         self.show()
 
+"""
+    Fonction main
+"""
 def main():
     pokemon_first_gen = [0, 151]
     listPokemon = find_pokemon_by_range(*pokemon_first_gen)
-    print(len(listPokemon))
     app= QApplication(sys.argv)
     mw=MainWindow(listPokemon)
     sys.exit(app.exec_())

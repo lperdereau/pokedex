@@ -2,6 +2,10 @@ from PyQt5.QtWidgets import QWidget,QPushButton,QGridLayout,QLineEdit,QMessageBo
 from PyQt5.QtCore import Qt
 from pokemon import find_pokemon_by_id,Pokemon,find_pokemon_by_name
 
+"""
+    Classe NavLayout sert a mettre en place l'affichage des boutons de navigation
+    du pokedex
+"""
 class NavLayout(QWidget):
 
     def __init__(self, liste, callback, index = 0) :
@@ -16,13 +20,12 @@ class NavLayout(QWidget):
         self.btnSearch = QPushButton('Search')
         self.btnSearch.resize(200,80)
         self.btnSearch.clicked.connect(self.search_click)
+        
         # Boutons de navigation entre les Pokémons
         self.btnLeft = QPushButton('←')
-        #self.btnLeft.setShortcut('Qt.Key_LEFT')
         self.btnLeft.clicked.connect(self.previous)
         
         self.btnRight = QPushButton('→')
-        # self.btnRight.setShortcut(Qt.Key_RIGHT)
         self.btnRight.clicked.connect(self.next)
 
         if self.index == 0:
@@ -67,7 +70,7 @@ class NavLayout(QWidget):
             self.index = self.index + 1
             self.callback(self.index)
             self.btnLeft.setEnabled(True)
-        # Si on arrive au dernier index on désactive le bouton suivant    
+        # Si on arrive au dernier pokémon on désactive le bouton suivant    
         elif self.index == len(self.liste) -2:
             self.index = self.index + 1
             self.callback(self.index)
@@ -79,12 +82,13 @@ class NavLayout(QWidget):
     def search_click(self):
         value = 0
         pok_name = self.search.text()
-        for i in self.liste:#deux for pour verif si int et autre pour string
+        for i in self.liste:
+            #identifie si on recherche par nom ou par id par apport à notre liste 
             if str(pok_name).lower()==i['name'].lower() :
                 value=1
             elif str((pok_name))== str(i['id']):
                 value=2
-        
+        # recherche par name 
         if value==1 :
             self.index=find_pokemon_by_name(pok_name).id-1
             self.callback(self.index)
@@ -97,6 +101,7 @@ class NavLayout(QWidget):
                 self.btnRight.setEnabled(False)
             else :
                 self.btnRight.setEnabled(True)
+        #recherche par id         
         elif value==2 :
             self.index=find_pokemon_by_id(pok_name).id-1
             self.callback(self.index)
@@ -109,5 +114,6 @@ class NavLayout(QWidget):
                 self.btnRight.setEnabled(False)
             else :
                 self.btnRight.setEnabled(True)
+        #le pokemon n'est pas dans notre liste
         else :
             QMessageBox.about(self, "Attention !", "Ce Pokémon n'existe pas")        

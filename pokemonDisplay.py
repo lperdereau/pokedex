@@ -17,7 +17,7 @@ class AffichagePokemon(QWidget):
         
         # corps de l'application
 
-        # Création de l'affichage du nom du Pokémon
+        # Création de l'affichage des attributs du Pokémon
         self.numLabel = QLabel("Number :")
         self.numValue = QLabel(str(self.pokemon.id))
 
@@ -52,12 +52,6 @@ class AffichagePokemon(QWidget):
 
         grid.addWidget(self.label,5,1)
         self.setLayout(grid)
-        
-        # Affichage du Layout avec les informations de la fenêtre
-        # self.setLayout(grid)
-        # self.setGeometry(300,300,200,200)
-        # self.setWindowTitle('Presentation de '+ self.pokemon.name)
-        # self.show()
 
     def Creation_img(self):
         # Récupération de l'image lié au Pokémon
@@ -70,6 +64,7 @@ class AffichagePokemon(QWidget):
         #imgsmaller = img.scaled(160,160)
         self.label.setPixmap(img)
 
+    #modification de l'affichage du Widget
     def update_UI(self,pokemon):
         self.pokemon=pokemon
         self.nomValue.setText(pokemon.name)
