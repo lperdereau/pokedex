@@ -4,6 +4,6 @@ class Pokemon:
         self.id = id
         self.name = name
         self.image = image
-        self.type=types
-        self.height=height
-        self.weight=weight
+        self.types = types
+        self.height = height
+        self.weight = weight

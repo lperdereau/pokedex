@@ -30,9 +30,7 @@ def find_pokemon_by_name(name,start=0,end=151):
 
     if r.status_code !=200 :
         return None
-
-    result = r.json()
-    return Pokemon(result["id"], result["name"], get_image_content(result["sprites"]["front_default"]), result["types"][0]["type"]["name"], result["height"], result["weight"])
+    return parse_json_pkmn(r.json())
 
 # fonction de recherche de pokémon par id
 # retourne une instance de Pokemon si trouvé, sinon rien.
@@ -41,12 +39,33 @@ def find_pokemon_by_id(id,start=0,end=151):
 
     if r.status_code !=200 :
         return None
-
-    result = r.json()
-    return Pokemon(result["id"], result["name"], get_image_content(result["sprites"]["front_default"]), result["types"][0]["type"]["name"], result["height"], result["weight"])
+    return parse_json_pkmn(r.json())
 
 def get_image_content(image_url):
     r = requests.get(image_url, allow_redirects=True)
     if r.status_code != 200:
         return None
     return r.content
+
+def parse_json_pkmn(json):
+    kwargs = {
+        'id': None,
+        'name': None,
+        'image': None,
+        'types': None,
+        'height': None,
+        'weight': None
+    }
+
+    # update kwargs without adding unwanted keys
+    kwargs.update((k, json[k]) for k in kwargs.keys() & json.keys())
+
+    # update image to get content and not url
+    kwargs.update({'image': get_image_content(json["sprites"]["front_default"])})
+
+    # update types to get list of types name
+    types = [pkmnType.get('type', {}).get('name', "") for pkmnType in kwargs.get('types', [])]
+    
+    kwargs.update({'types': types})
+
+    return Pokemon(**kwargs)
